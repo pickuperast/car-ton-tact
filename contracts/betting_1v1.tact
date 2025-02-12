@@ -62,7 +62,7 @@ contract BettingGame with Deployable {
         }
     }
 
-    deposit() {
+    deposit(): void {
         require(!this.isFinished, ERROR_GAME_FINISHED);
         require(msg.value >= MIN_TON, ERROR_INVALID_AMOUNT);
         require(this.players.has(msg.sender), ERROR_INVALID_PLAYER);
