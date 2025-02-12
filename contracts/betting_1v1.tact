@@ -27,7 +27,7 @@ struct Storage {
     gasFee: Int;
 }
 
-contract BettingGame {
+contract BettingGame with Deployable {
     owner: Address;
     players: Map<Address, Bool>;
     isFinished: Bool;
