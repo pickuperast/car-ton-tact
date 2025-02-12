@@ -1,5 +1,4 @@
 import "@stdlib/deploy";
-import "@stdlib/math";
 
 // Constants
 const MIN_TON: Int = 1000000000; // 1 TON in nanotons
@@ -27,14 +26,18 @@ struct Storage {
     gasFee: Int;
 }
 
-contract BettingGame {
-    owner: Address;
+message Bet {
+    amount: Int as uint128;
+}
+
+contract BettingGame1v1 with Deployable {
+    owner: Address;//264-bit, storing 1000 address 0.189 TON per year
     players: Map<Address, Bool>;
     isFinished: Bool;
     gasFee: Int;
 
-    init(ownerAddress: Address, playerAAddress: Address, playerBAddress: Address) {
-        this.owner = ownerAddress;
+    init(playerAAddress: Address, playerBAddress: Address) {
+        this.owner = sender();
         this.players = new Map<Address, Bool>();
         this.players.set(playerAAddress, true);
         this.players.set(playerBAddress, true);
@@ -42,7 +45,7 @@ contract BettingGame {
         this.gasFee = GAS_FEE;
     }
 
-    receive(msg: Message) {
+    receive(msg: Bet) {
         if (msg.body.empty?) {
             this.deposit();
         } else {
