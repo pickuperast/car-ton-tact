@@ -127,7 +127,7 @@ contract BettingGame1v1 with Deployable {
         this.gasFee = newGasFee;
     }
 
-    getStorage(): Storage {
+    get fun getStorage(): Storage {
         return Storage{
             owner: this.owner,
             players: this.players,
